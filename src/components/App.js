@@ -7,7 +7,7 @@ const App = () => {
 
   const handleKeyDown = (event) => {
     val = +event.target.value;
-    console.log(typeof val);
+    // console.log(typeof val);
     if (val !== "" && !isNaN(val) && typeof val === "number") {
       val = Math.floor(val);
       setval(val);
@@ -23,6 +23,8 @@ const App = () => {
           } else setval(val);
         }, 1000);
       }
+    } else {
+      setval(0);
     }
   };
 
