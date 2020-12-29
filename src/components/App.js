@@ -7,17 +7,20 @@ const App = () => {
 
   const handleKeyDown = (event) => {
     val = +event.target.value;
-    if (typeof val === "number") {
+    console.log(typeof val);
+    if (val !== "" && !isNaN(val) && typeof val === "number") {
       val = Math.floor(val);
       setval(val);
       if (event.key === "Enter") {
         let intervalId = setInterval(() => {
           val = val - 1;
-          setval(val);
-
-          if (val === 0) {
+          //setval(val);
+          if (val <= 0) {
+            if (val >= 0) {
+              setval(val);
+            }
             clearInterval(intervalId);
-          }
+          } else setval(val);
         }, 1000);
       }
     }
