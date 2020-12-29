@@ -9,7 +9,6 @@ const App = () => {
     if (event.key !== "Enter") {
       return;
     }
-
     let val = event.target.value;
     val = Math.floor(val);
 
@@ -23,7 +22,7 @@ const App = () => {
   useEffect(() => {
     let intervalId = 0;
     if (count > 0) {
-      setInterval(() => {
+      intervalId = setInterval(() => {
         setCount(count - 1);
       }, 1000);
     }
