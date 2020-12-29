@@ -3,40 +3,42 @@ import "../styles/App.css";
 
 const App = () => {
   // write your code here
-  let [val, setval] = React.useState(0);
+  const [count, setCount] = React.useState(0);
 
   const handleKeyDown = (event) => {
-    val = +event.target.value;
-    // console.log(typeof val);
-    if (val !== "" && !isNaN(val) && typeof val === "number") {
-      val = Math.floor(val);
-      setval(val);
-      if (event.key === "Enter") {
-        let intervalId = setInterval(() => {
-          val = val - 1;
-          //setval(val);
-          if (val <= 0) {
-            if (val >= 0) {
-              setval(val);
-            }
-            clearInterval(intervalId);
-          } else setval(val);
-        }, 1000);
-      }
-    } else {
-      setval(0);
+    if (event.key !== "Enter") {
+      return;
     }
+
+    let val = event.target.value;
+    val = Math.floor(val);
+
+    if (val < 0) {
+      val = 0;
+    }
+
+    setCount(val);
   };
+
+  useEffect(() => {
+    let intervalId = 0;
+    if (count > 0) {
+      setInterval(() => {
+        setCount(count - 1);
+      }, 1000);
+    }
+    return () => clearInterval(intervalId);
+  });
 
   return (
     <div className="wrapper">
       <div id="whole-center">
         <h1>
           Reverse countdown for
-          <input id="timeCount" onKeyDown={handleKeyDown} />
+          <input id="timeCount" type="number" onKeyDown={handleKeyDown} />
         </h1>
       </div>
-      <div id="current-time">{val}</div>
+      <div id="current-time">{count}</div>
     </div>
   );
 };
